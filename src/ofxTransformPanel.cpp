@@ -36,7 +36,7 @@ void ofxTransformPanel::setup(ofxTransformer *transformer, const string &name, c
 	reset.set("reset everything");
 
 	// add widgets to panel
-	panel = gui.addPanel(name, ofToDataPath(xmlFile));
+	panel = gui.addPanel(name, ofJson({{"filename", ofToDataPath(xmlFile)}}));
 	panel->add(position);
 	panel->add(translate);
 	panel->add(mirrorX);
