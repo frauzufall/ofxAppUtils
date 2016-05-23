@@ -1,2 +1,2 @@
 ofxAppUtils
-ofxGui
+ofxGuiExtended

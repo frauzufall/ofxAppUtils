@@ -12,41 +12,41 @@
 
 //--------------------------------------------------------------
 void ofxTransformPanel::setup(ofxTransformer *transformer, const string &name, const string &xmlFile) {
-	
+
 	this->transformer = transformer;
-	
+
 	// setup callbacks
 	editWarp.addListener(this, &ofxTransformPanel::editWarpPressed);
 	saveWarp.addListener(this, &ofxTransformPanel::saveWarpPressed);
 	reset.addListener(this, &ofxTransformPanel::resetPressed);
-	
+
 	// setup values from transformer
-	position.setup("position",
+	position.set("position",
 	   transformer->getPosition(),                                                      // val
 	   ofPoint(-transformer->getRenderWidth(), -transformer->getRenderHeight(), -200),  // min
 	   ofPoint(transformer->getRenderWidth(), transformer->getRenderHeight(), 1000));   // max
-	translate.setup("translate", transformer->getTranslate());
-	mirrorX.setup("mirrorX", transformer->getMirrorX());
-	mirrorY.setup("mirrorY", transformer->getMirrorY());
-	centering.setup("centering", transformer->getCentering());
-	aspect.setup("aspect", transformer->getAspect());
-	warp.setup("warp", transformer->getWarp());
-	editWarp.setup("edit warp");
-	saveWarp.setup("save warp");
-	reset.setup("reset everything");
-	
+	translate.set("translate", transformer->getTranslate());
+	mirrorX.set("mirrorX", transformer->getMirrorX());
+	mirrorY.set("mirrorY", transformer->getMirrorY());
+	centering.set("centering", transformer->getCentering());
+	aspect.set("aspect", transformer->getAspect());
+	warp.set("warp", transformer->getWarp());
+	editWarp.set("edit warp");
+	saveWarp.set("save warp");
+	reset.set("reset everything");
+
 	// add widgets to panel
-	panel.setup(name, ofToDataPath(xmlFile));
-	panel.add(&position);
-	panel.add(&translate);
-	panel.add(&mirrorX);
-	panel.add(&mirrorY);
-	panel.add(&centering);
-	panel.add(&aspect);
-	panel.add(&warp);
-	panel.add(&editWarp);
-	panel.add(&saveWarp);
-	panel.add(&reset);
+	panel = gui.addPanel(name, ofToDataPath(xmlFile));
+	panel->add(position);
+	panel->add(translate);
+	panel->add(mirrorX);
+	panel->add(mirrorY);
+	panel->add(centering);
+	panel->add(aspect);
+	panel->add(warp);
+	panel->add(editWarp);
+	panel->add(saveWarp);
+	panel->add(reset);
 
 	// load settings if they exist
 	if(ofFile::doesFileExist(ofToDataPath(xmlFile))) {
@@ -75,17 +75,16 @@ void ofxTransformPanel::draw() {
 	if(!transformer || transformer->getEditWarp()) {
 		return;
 	}
-	panel.draw();
 }
 
 //--------------------------------------------------------------
 void ofxTransformPanel::loadSettings(const string &xmlFile) {
-	panel.loadFromFile(ofToDataPath(xmlFile));
+	panel->loadFromFile(ofToDataPath(xmlFile));
 }
 
 //--------------------------------------------------------------
 void ofxTransformPanel::saveSettings(const string &xmlFile) {
-	panel.saveToFile(ofToDataPath(xmlFile));
+	panel->saveToFile(ofToDataPath(xmlFile));
 }
 
 //--------------------------------------------------------------

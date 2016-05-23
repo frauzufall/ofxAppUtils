@@ -10,7 +10,7 @@
  */
 #pragma once
 
-#include "ofxGui.h"
+#include "ofxGuiExtended.h"
 #include "ofxTransformer.h"
 
 /// \class TransformPanel
@@ -20,42 +20,44 @@
 class ofxTransformPanel {
 
 	public:
-	
+
 		ofxTransformPanel() : transformer(NULL) {}
-	
-		ofxPanel panel; //< gui panel
-	
-		ofxPointSlider position; //< 3d transform origin
-		ofxToggle translate;     //< translate the origin?
-		ofxToggle mirrorX;       //< mirror horizontally?
-		ofxToggle mirrorY;       //< mirror vertically?
-		ofxToggle aspect;        //< keep aspect ratio?
-		ofxToggle centering;     //< center in middle of the screen?
-		ofxToggle warp;          //< enable the quad warper?
-		ofxButton editWarp;      //< edit quad warper
-		ofxButton saveWarp;      //< save quad warper
-		ofxButton reset;         //< reset everything
-	
+
+		ofxGui gui;
+
+		ofxGuiPanel *panel; //< gui panel
+
+		ofParameter<ofPoint> position; //< 3d transform origin
+		ofParameter<bool> translate;     //< translate the origin?
+		ofParameter<bool> mirrorX;       //< mirror horizontally?
+		ofParameter<bool> mirrorY;       //< mirror vertically?
+		ofParameter<bool> aspect;        //< keep aspect ratio?
+		ofParameter<bool> centering;     //< center in middle of the screen?
+		ofParameter<bool> warp;          //< enable the quad warper?
+		ofParameter<void> editWarp;      //< edit quad warper
+		ofParameter<void> saveWarp;      //< save quad warper
+		ofParameter<void> reset;         //< reset everything
+
 		/// set the transformer to control, set optional panel name and settings file name,
 		/// loads settings file if found
 		void setup(ofxTransformer *transformer, const string &name="Transform", const string &xmlFile="transformSettings.xml");
-	
+
 		/// update the transformer with the current panel settings
 		void update();
-	
+
 		/// draw the panel
 		void draw();
-	
+
 		/// load and save the control panel settings
 		void loadSettings(const string &xmlFile="transformSettings.xml");
 		void saveSettings(const string &xmlFile="transformSettings.xml");
-	
+
 		/// button callbacks
 		void editWarpPressed();
 		void saveWarpPressed();
 		void resetPressed();
-	
+
 	protected:
-	
+
 		ofxTransformer *transformer; //< current transformer to control
 };
